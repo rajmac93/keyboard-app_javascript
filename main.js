@@ -50,14 +50,14 @@ function backspaceKeyAction() {
   });
 }
 //? need do repair
-function addTabulator() {
-  keyTabulator.addEventListener("click", () => {
-    words = keyTabulator.textContent;
-    arrLetters.push(words);
-    let convertedArrayToString = arrLetters.join("").toString();
-    displayText.innerHTML = convertedArrayToString;
-  });
-}
+// function addTabulator() {
+//   keyTabulator.addEventListener("click", () => {
+//     words = keyTabulator.textContent;
+//     arrLetters.push(words);
+//     let convertedArrayToString = arrLetters.join("").toString();
+//     displayText.innerHTML = convertedArrayToString;
+//   });
+// }
 function capsLockAction() {
   let flag = true; // flag is needed to changing elements after clicking SHIFT buttons
   keyCapsLock.addEventListener("click", () => {
@@ -154,23 +154,28 @@ function shiftKeyAction() {
 
         flag = !flag;
       }
+
+      //
+      //
       // returning to small lettters and specials chars after clicking something (nie działa za dobrze, trzeba kliknąć dwa razy shift potem :/)
-      // for (let i = 0; i < symbol.length; i++) {
-      // 	symbol[i].addEventListener('click', function () {
-      // 		function reverseCapital(a) {
-      // 			return a[0].toLowerCase();
-      // 		}
-      // 		for (el of letters) {
-      // 			el.innerHTML = reverseCapital(el.innerHTML);
-      // 		}
-      // 		for (let i = 0; i < specChar.length; i++) {
-      // 			specSecondChar[i].style.display = 'none';
-      // 			for (let i = 0; i < activeState.length; i++) {
-      // 				activeState[i].style.display = 'block';
-      // 			}
-      // 		}
-      // 	});
-      // }
+      for (let i = 0; i < symbol.length; i++) {
+        symbol[i].addEventListener("click", function () {
+          function reverseCapital(a) {
+            return a[0].toLowerCase();
+          }
+          for (el of letters) {
+            el.innerHTML = reverseCapital(el.innerHTML);
+          }
+          for (let i = 0; i < specChar.length; i++) {
+            specSecondChar[i].style.display = "none";
+            for (let i = 0; i < activeState.length; i++) {
+              activeState[i].style.display = "block";
+            }
+          }
+        });
+      }
+
+      //
 
       for (let i = 0; i < symbol.length; i++) {
         symbol[i].addEventListener("click", function () {

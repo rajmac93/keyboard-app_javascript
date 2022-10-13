@@ -200,6 +200,11 @@ button:hover {
 .letter:disabled {
   color: #fff;
 }
+/* not working yet, remember to remove that lines */
+.key__tabulator {
+  pointer-events: none;
+}
+/* not working yet, remember to remove that lines */
 
 @media only screen and (max-width: 801px) {
   .body {
