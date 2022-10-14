@@ -1,10 +1,12 @@
 let displayText = document.querySelector(".display");
+const content = document.getElementById("content");
 const symbol = document.querySelectorAll(".symbol");
 const letters = document.querySelectorAll(".letter");
 const polishLetter = document.querySelectorAll(".polish--letter");
 const keyBackspace = document.querySelector(".key__backspace");
 const keyTabulator = document.querySelector(".key__tabulator");
 const keyCapsLock = document.querySelector(".key__casplock");
+const keyEnter = document.querySelector(".key__enter");
 const keyShift = document.querySelectorAll(".key__shift");
 const specChar = document.querySelectorAll(".spec__char");
 const specSecondChar = document.querySelectorAll(".spec__char--second");
@@ -20,6 +22,7 @@ const nonAcute = document.querySelectorAll(".non--acute");
 
 let words;
 let arrLetters = [];
+let convertedArrayToString;
 
 //
 //
@@ -35,15 +38,25 @@ function addLetterToDisplay() {
       words = symbol[i].innerHTML;
       arrLetters.push(words);
 
-      let convertedArrayToString = arrLetters.join("").toString();
+      convertedArrayToString = arrLetters.join("").toString();
       displayText.innerHTML = convertedArrayToString;
     });
   }
 }
 // * working part
+function enterKetAction() {
+  keyEnter.addEventListener("click", () => {
+    console.log(content.innerHTML);
+    content.innerHTML += "<br>";
+    arrLetters.push("<br>");
+    console.log(words);
+  });
+}
+
+// * working part
 function backspaceKeyAction() {
   keyBackspace.addEventListener("click", () => {
-    words = displayText.textContent;
+    words = displayText.innerText;
     words = words.substring(0, words.length - 1);
     displayText.textContent = words;
     arrLetters.pop(); // deleting last element in arrLetters;
@@ -234,6 +247,7 @@ function altKeyAction() {
 addLetterToDisplay();
 backspaceKeyAction();
 capsLockAction();
+enterKetAction();
 shiftKeyAction();
 altKeyAction();
-addTabulator();
+// addTabulator();
