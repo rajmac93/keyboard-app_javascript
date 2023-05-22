@@ -66,7 +66,7 @@ button {
   outline: inherit;
   border-radius: 5px;
   box-shadow: 0 4px 2px -2px gray;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 button:hover {
