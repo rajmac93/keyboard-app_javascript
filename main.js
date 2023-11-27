@@ -91,7 +91,7 @@ function capsLockAction() {
         el.innerHTML = capital(el.innerHTML);
       }
       // specChars
-      flag = !flag;
+      !flag;
     } else if (!flag) {
       // changing to small letters
       function reverseCapital(a) {
@@ -165,7 +165,7 @@ function shiftKeyAction() {
           }
         }
 
-        flag = !flag;
+        !flag;
       }
 
       //
