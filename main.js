@@ -33,15 +33,14 @@ let convertedArrayToString;
 function addLetterToDisplay() {
   // Adding button to display from keyboard
   // 1. Taking the text from the button, and then show this text in 'display'
-  for (let i = 0; i < symbol.length; i++) {
-    symbol[i].addEventListener("click", () => {
-      words = symbol[i].innerHTML;
+  symbol.forEach((s) => {
+    s.addEventListener("click", () => {
+      words = s.innerHTML;
       arrLetters.push(words);
-
       convertedArrayToString = arrLetters.join("").toString();
       displayText.innerHTML = convertedArrayToString;
     });
-  }
+  });
 }
 // * working part
 function enterKetAction() {
@@ -49,7 +48,6 @@ function enterKetAction() {
     console.log(content.innerHTML);
     content.innerHTML += "<br>";
     arrLetters.push("<br>");
-    console.log(words);
   });
 }
 
@@ -71,6 +69,7 @@ function backspaceKeyAction() {
 //     displayText.innerHTML = convertedArrayToString;
 //   });
 // }
+//? need do repair
 function capsLockAction() {
   let flag = true; // flag is needed to changing elements after clicking SHIFT buttons
   keyCapsLock.addEventListener("click", () => {
