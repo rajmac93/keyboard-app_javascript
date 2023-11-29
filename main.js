@@ -43,14 +43,12 @@ function addLetterToDisplay() {
   });
 }
 // * working part
-function enterKetAction() {
+function enterKeyAction() {
   keyEnter.addEventListener("click", () => {
-    console.log(content.innerHTML);
     content.innerHTML += "<br>";
     arrLetters.push("<br>");
   });
 }
-
 // * working part
 function backspaceKeyAction() {
   keyBackspace.addEventListener("click", () => {
@@ -60,6 +58,42 @@ function backspaceKeyAction() {
     arrLetters.pop(); // deleting last element in arrLetters;
   });
 }
+// * working part
+function altKeyAction() {
+  let flag = true;
+  keyAlt.forEach((key) => {
+    key.addEventListener("click", function () {
+      const displayAcute = flag ? "block" : "none";
+      const displayNonAcute = flag ? "none" : "block";
+      const pointerEventsLetters = flag ? "none" : "all";
+      const disabledLetters = flag;
+
+      acute.forEach((el) => (el.style.display = displayAcute));
+      letters.forEach((el) => {
+        el.disabled = disabledLetters;
+        el.style.pointerEvents = pointerEventsLetters;
+      });
+      nonAcute.forEach((el) => (el.style.display = displayNonAcute));
+
+      flag = !flag;
+    });
+  });
+}
+// * working part
+function capsLockAction() {
+  let flag = true;
+  keyCapsLock.addEventListener("click", () => {
+    const transform = flag
+      ? (a) => a[0].toUpperCase()
+      : (a) => a[0].toLowerCase();
+    for (let el of [...letters, ...polishLetter]) {
+      el.innerHTML = transform(el.innerHTML);
+    }
+
+    flag = !flag;
+  });
+}
+
 //? need do repair
 // function addTabulator() {
 //   keyTabulator.addEventListener("click", () => {
@@ -69,184 +103,84 @@ function backspaceKeyAction() {
 //     displayText.innerHTML = convertedArrayToString;
 //   });
 // }
-//? need do repair
-function capsLockAction() {
-  let flag = true; // flag is needed to changing elements after clicking SHIFT buttons
-  keyCapsLock.addEventListener("click", () => {
-    // 1. do a UpperCase letters
-    if (flag) {
-      // changing to big letters
-      function capital(a) {
-        return a[0].toUpperCase();
-      }
-      for (el of letters) {
-        el.innerHTML = capital(el.innerHTML);
-      }
-      // changing to big letters for polish letters
-      function capital(a) {
-        return a[0].toUpperCase();
-      }
-      for (el of polishLetter) {
-        el.innerHTML = capital(el.innerHTML);
-      }
-      // specChars
-      !flag;
-    } else if (!flag) {
-      // changing to small letters
-      function reverseCapital(a) {
-        return a[0].toLowerCase();
-      }
-      for (el of letters) {
-        el.innerHTML = reverseCapital(el.innerHTML);
-      }
-      // changing to small letters for polish letters
-      function reverseCapital(a) {
-        return a[0].toLowerCase();
-      }
-      for (el of polishLetter) {
-        el.innerHTML = reverseCapital(el.innerHTML);
-      }
-      // specChars
-      flag = !flag;
-    }
-  });
-}
 
 //? need do repair
+// function shiftKeyAction() {
+//   // let flag = true;
+
+//   keyShift.forEach((key) => {
+//     key.addEventListener("click", () => {
+//       const transform = flag
+//         ? (a) => a[0].toUpperCase()
+//         : (a) => a[0].toLowerCase();
+//       const displaySpecSecondChar = flag ? "block" : "none";
+//       const displayActiveState = flag ? "none" : "block";
+
+//       [...letters, ...polishLetter].forEach((el) => {
+//         el.innerHTML = transform(el.innerHTML);
+//       });
+
+//       specSecondChar.forEach(
+//         (el) => (el.style.display = displaySpecSecondChar)
+//       );
+//       activeState.forEach((el) => (el.style.display = displayActiveState));
+
+//       flag = !flag;
+//     });
+//   });
+
+//   symbol.forEach((el) => {
+//     el.addEventListener("click", () => {
+//       const transform = (a) => a[0].toLowerCase();
+//       letters.forEach((el) => (el.innerHTML = transform(el.innerHTML)));
+//       specSecondChar.forEach((el) => (el.style.display = "none"));
+//       activeState.forEach((el) => (el.style.display = "block"));
+//     });
+//   });
+// }
+
 function shiftKeyAction() {
-  let flag = true; // flag is needed to changing elements after clicking SHIFT buttons
-  for (let i = 0; i < keyShift.length; i++) {
-    keyShift[i].addEventListener("click", () => {
-      // 1. do a UpperCase letters
-      if (flag) {
-        // changing to big letters
-        function capital(a) {
-          return a[0].toUpperCase();
-        }
-        for (el of letters) {
-          el.innerHTML = capital(el.innerHTML);
-        }
-        // changing to big letters for polish letters
-        function capital(a) {
-          return a[0].toUpperCase();
-        }
-        for (el of polishLetter) {
-          el.innerHTML = capital(el.innerHTML);
-        }
-        // specChars
-        for (let i = 0; i < specChar.length; i++) {
-          specSecondChar[i].style.display = "block";
-          for (let i = 0; i < activeState.length; i++) {
-            activeState[i].style.display = "none";
-          }
-        }
-        flag = !flag;
-      } else if (!flag) {
-        // changing to small letters
-        function reverseCapital(a) {
-          return a[0].toLowerCase();
-        }
-        for (el of letters) {
-          el.innerHTML = reverseCapital(el.innerHTML);
-        }
-        // changing to small letters for polish letters
-        function reverseCapital(a) {
-          return a[0].toLowerCase();
-        }
-        for (el of polishLetter) {
-          el.innerHTML = reverseCapital(el.innerHTML);
-        }
-        // specChars
-        for (let i = 0; i < specChar.length; i++) {
-          specSecondChar[i].style.display = "none";
-          for (let i = 0; i < activeState.length; i++) {
-            activeState[i].style.display = "block";
-          }
-        }
-
-        !flag;
-      }
-
-      //
-      //
-      // returning to small lettters and specials chars after clicking something (nie działa za dobrze, trzeba kliknąć dwa razy shift potem :/)
-      for (let i = 0; i < symbol.length; i++) {
-        symbol[i].addEventListener("click", function () {
-          function reverseCapital(a) {
-            return a[0].toLowerCase();
-          }
-          for (el of letters) {
-            el.innerHTML = reverseCapital(el.innerHTML);
-          }
-          for (let i = 0; i < specChar.length; i++) {
-            specSecondChar[i].style.display = "none";
-            for (let i = 0; i < activeState.length; i++) {
-              activeState[i].style.display = "block";
-            }
-          }
-        });
-      }
-
-      //
-
-      for (let i = 0; i < symbol.length; i++) {
-        symbol[i].addEventListener("click", function () {
-          function reverseCapital(a) {
-            return a[0].toLowerCase();
-          }
-          for (el of letters) {
-            el.innerHTML = reverseCapital(el.innerHTML);
-          }
-          for (let i = 0; i < specChar.length; i++) {
-            specSecondChar[i].style.display = "none";
-            for (let i = 0; i < activeState.length; i++) {
-              activeState[i].style.display = "block";
-            }
-          }
-        });
-        return;
-      }
-    });
-  }
-}
-
-function altKeyAction() {
   let flag = true;
-  for (let i = 0; i < keyAlt.length; i++) {
-    keyAlt[i].addEventListener("click", function () {
+
+  const capital = (a) => a[0].toUpperCase();
+  const reverseCapital = (a) => a[0].toLowerCase();
+  const changeCase = (elements, func) =>
+    elements.forEach((el) => (el.innerHTML = func(el.innerHTML)));
+  const changeDisplay = (elements, display) =>
+    elements.forEach((el) => (el.style.display = display));
+
+  keyShift.forEach((key) => {
+    key.addEventListener("click", () => {
       if (flag) {
-        for (let i = 0; i < acute.length; i++) {
-          acute[i].style.display = "block";
-        }
-        for (let i = 0; i < letters.length; i++) {
-          letters[i].disabled = true;
-          letters[i].style.pointerEvents = "none";
-        }
-        for (let i = 0; i < nonAcute.length; i++) {
-          nonAcute[i].style.display = "none";
-        }
-        flag = !flag;
+        changeCase(letters, capital);
+        changeCase(polishLetter, capital);
+        changeDisplay(specSecondChar, "block");
+        changeDisplay(activeState, "none");
       } else {
-        for (let i = 0; i < acute.length; i++) {
-          acute[i].style.display = "none";
-        }
-        for (let i = 0; i < letters.length; i++) {
-          letters[i].disabled = false;
-          letters[i].style.pointerEvents = "all";
-        }
-        for (let i = 0; i < nonAcute.length; i++) {
-          nonAcute[i].style.display = "block";
-        }
-        flag = !flag;
+        changeCase(letters, reverseCapital);
+        changeCase(polishLetter, reverseCapital);
+        changeDisplay(specSecondChar, "none");
+        changeDisplay(activeState, "block");
       }
+      flag = !flag;
+      console.log(`${flag} ale w keyshift.foreach`);
+      symbol.forEach((sym) => {
+        sym.addEventListener("click", function () {
+          changeCase(letters, reverseCapital);
+          changeDisplay(specSecondChar, "none");
+          changeDisplay(activeState, "block");
+          flag = !flag;
+          console.log(`${flag} ale w symbol.foreach`);
+        });
+      });
     });
-  }
+  });
 }
 
 addLetterToDisplay();
 backspaceKeyAction();
 capsLockAction();
-enterKetAction();
+enterKeyAction();
 shiftKeyAction();
 altKeyAction();
 // addTabulator();
